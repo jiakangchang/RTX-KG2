@@ -55,7 +55,7 @@ mem_gb=`${CODE_DIR}/get-system-memory-gb.sh`
 export OWLTOOLS_MEMORY=${mem_gb}G
 export DEBUG=1  ## for owltools
 
-${s3_cp_cmd} s3://${s3_bucket}/foodon.pickle ${BUILD_DIR}/
+# ${gcs_cp_cmd} gs://${gcs_bucket}/foodon.pickle ${BUILD_DIR}/ 
 
 ## run the multi_ont_to_json_kg.py script
 cd ${BUILD_DIR} && ${python_command} ${CODE_DIR}/multi_ont_to_kg_jsonl.py \

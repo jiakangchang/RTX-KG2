@@ -280,58 +280,52 @@ def get_nodes(connection, nodes_output, test):
     # of the node (because each publication creates a new row of the node)
     # into one.
     nodes_sql = "SELECT si.identifier as node_id, \
-                 GROUP_CONCAT(DISTINCT dbobj._displayName) as node_name, \
-                 GROUP_CONCAT(DISTINCT dbobj._timestamp) as update_date, \
-                 GROUP_CONCAT(DISTINCT dbobj._class) as category, \
-                 GROUP_CONCAT(DISTINCT lit_fr_e.pubMedIdentifier) as pmid_event, \
-                 GROUP_CONCAT(DISTINCT lit_fr_p.pubMedIdentifier) as pmid_entity, \
-                 GROUP_CONCAT(DISTINCT sum_fr_e.text) as description_event, \
-                 GROUP_CONCAT(DISTINCT sum_fr_p.text) as description_entity, \
-                 GROUP_CONCAT(DISTINCT sum_fr_r.text) as description_regulation, \
-                 GROUP_CONCAT(DISTINCT ins_ed.dateTime) as created_date, \
-                 GROUP_CONCAT(DISTINCT ewas.referenceEntity_class) as refclass  \
-                 FROM StableIdentifier si \
-                 INNER JOIN DatabaseObject dbobj \
-                 ON si.DB_ID=dbobj.stableIdentifier \
-                 LEFT JOIN InstanceEdit ins_ed \
-                 ON dbobj.created=ins_ed.DB_ID \
-                 LEFT JOIN Event_2_literatureReference ev_lit \
-                 ON dbobj.DB_ID=ev_lit.DB_ID \
-                 LEFT JOIN LiteratureReference lit_fr_e \
-                 ON lit_fr_e.DB_ID=ev_lit.literatureReference \
-                 LEFT JOIN Event_2_summation ev_sum \
-                 ON ev_sum.DB_ID=dbobj.DB_ID \
-                 LEFT JOIN Summation sum_fr_e \
-                 ON ev_sum.summation=sum_fr_e.DB_ID \
-                 LEFT JOIN PhysicalEntity_2_literatureReference pe_lit \
-                 ON dbobj.DB_ID=pe_lit.DB_ID \
-                 LEFT JOIN LiteratureReference lit_fr_p \
-                 ON lit_fr_p.DB_ID=pe_lit.literatureReference \
-                 LEFT JOIN PhysicalEntity_2_summation pe_sum \
-                 ON dbobj.DB_ID=pe_sum.DB_ID \
-                 LEFT JOIN Summation sum_fr_p \
-                 ON pe_sum.summation = sum_fr_p.DB_ID \
-                 LEFT JOIN Regulation_2_summation reg_sum \
-                 on reg_sum.DB_ID=dbobj.DB_ID \
-                 LEFT JOIN Summation sum_fr_r \
-                 ON sum_fr_r.DB_ID=reg_sum.summation \
-                 LEFT JOIN EntityWithAccessionedSequence ewas \
-                 ON dbobj.DB_ID = ewas.DB_ID \
-                 GROUP BY si.identifier"
+             GROUP_CONCAT(DISTINCT dbobj._displayName) as node_name, \
+             GROUP_CONCAT(DISTINCT dbobj._timestamp) as update_date, \
+             GROUP_CONCAT(DISTINCT dbobj._class) as category, \
+             GROUP_CONCAT(DISTINCT lit_fr_e.pubMedIdentifier) as pmid_event, \
+             GROUP_CONCAT(DISTINCT lit_fr_p.pubMedIdentifier) as pmid_entity, \
+             GROUP_CONCAT(DISTINCT sum_fr_e.text) as description_event, \
+             GROUP_CONCAT(DISTINCT sum_fr_p.text) as description_entity, \
+             GROUP_CONCAT(DISTINCT ins_ed.dateTime) as created_date, \
+             GROUP_CONCAT(DISTINCT ewas.referenceEntity_class) as refclass  \
+             FROM StableIdentifier si \
+             INNER JOIN DatabaseObject dbobj \
+             ON si.DB_ID=dbobj.stableIdentifier \
+             LEFT JOIN InstanceEdit ins_ed \
+             ON dbobj.created=ins_ed.DB_ID \
+             LEFT JOIN Event_2_literatureReference ev_lit \
+             ON dbobj.DB_ID=ev_lit.DB_ID \
+             LEFT JOIN LiteratureReference lit_fr_e \
+             ON lit_fr_e.DB_ID=ev_lit.literatureReference \
+             LEFT JOIN Event_2_summation ev_sum \
+             ON ev_sum.DB_ID=dbobj.DB_ID \
+             LEFT JOIN Summation sum_fr_e \
+             ON ev_sum.summation=sum_fr_e.DB_ID \
+             LEFT JOIN PhysicalEntity_2_literatureReference pe_lit \
+             ON dbobj.DB_ID=pe_lit.DB_ID \
+             LEFT JOIN LiteratureReference lit_fr_p \
+             ON lit_fr_p.DB_ID=pe_lit.literatureReference \
+             LEFT JOIN PhysicalEntity_2_summation pe_sum \
+             ON dbobj.DB_ID=pe_sum.DB_ID \
+             LEFT JOIN Summation sum_fr_p \
+             ON pe_sum.summation = sum_fr_p.DB_ID \
+             LEFT JOIN EntityWithAccessionedSequence ewas \
+             ON dbobj.DB_ID = ewas.DB_ID \
+             GROUP BY si.identifier"
     if test:
         nodes_sql += " LIMIT " + str(ROW_LIMIT_TEST_MODE)
     for result in run_sql(nodes_sql, connection):
         (reactome_id,
-         name,
-         update_date,
-         reactome_category,
-         publications_event, 
-         publications_phy_ent,
-         description_event,
-         description_phy_ent,
-         descrption_reg,
-         created_date,
-         reference_class) = result
+        name,
+        update_date,
+        reactome_category,
+        publications_event, 
+        publications_phy_ent,
+        description_event,
+        description_phy_ent,
+        created_date,
+        reference_class) = result
         node_id = only_include_certain_species(kg2_util.CURIE_PREFIX_REACTOME + ':' + reactome_id)
         if node_id is None:
             continue
@@ -363,7 +357,7 @@ def get_nodes(connection, nodes_output, test):
         elif description_phy_ent is not None:
             description = description_phy_ent
         else:
-            description = descrption_reg
+            description = ""
 
         node = kg2_util.make_node(node_id,
                                   iri,

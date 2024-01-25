@@ -1,5 +1,5 @@
 - # maps to CURIE prefix: biolink
-  url: https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.owl.ttl
+  url: https://raw.githubusercontent.com/biolink/biolink-model/v3.5.2/biolink-model.owl.ttl
   file: biolink-model.owl.ttl
   download: true
   title: Biolink meta-model
@@ -48,11 +48,11 @@
   file: cl.owl
   download: true
   title: Cell Ontology
--
-  url: http://purl.obolibrary.org/obo/foodon.owl 
-  file: foodon.owl
-  download: true
-  title: FOODON (Food Ontology)
+# -
+#   url: http://purl.obolibrary.org/obo/foodon.owl 
+#   file: foodon.owl
+#   download: true
+#   title: FOODON (Food Ontology)
 -
   url: https://data.bioontology.org/ontologies/ORDO/submissions/27/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb
   file: ordo.owl

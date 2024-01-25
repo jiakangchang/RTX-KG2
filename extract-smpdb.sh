@@ -38,7 +38,7 @@ do
 	mv ${output_dir}/pathbank_all_pwml/${individ_file} ${output_dir}
 done
 
-${s3_cp_cmd} s3://${s3_bucket}/${smpdb_pmids_file} ${output_dir}
+${gcs_cp_cmd} gs://${gcs_bucket}/${smpdb_pmids_file} ${output_dir}
 
 date
 echo "================= finishing extract-smpdb.sh =================="

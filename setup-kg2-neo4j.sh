@@ -62,7 +62,7 @@ mkdir -p ${BUILD_DIR}
 } >~/setup-kg2-neo4j.log 2>&1
 
 ## setup AWS CLI; this requires manual intervention so auto-logging is turned off here
-if ! ${s3_cp_cmd} s3://${s3_bucket}/test-file-do-not-delete /tmp/; then
+if ! ${gcs_cp_cmd} gs://${gcs_bucket}/test-file-do-not-delete /tmp/; then
     aws configure
 else
     rm -f /tmp/test-file-do-not-delete
@@ -72,7 +72,7 @@ fi
     bash -x ${CODE_DIR}/install-neo4j.sh
 
     # copy the RTX configuration file from S3 to ${BUILD_DIR}
-    ${s3_cp_cmd} s3://${s3_bucket}/${rtx_config_file} ${BUILD_DIR}/${rtx_config_file}
+    ${gcs_cp_cmd} gs://${gcs_bucket}/${rtx_config_file} ${BUILD_DIR}/${rtx_config_file}
 
     ## setup owltools
     ${curl_get} ${BUILD_DIR} https://github.com/RTXteam/owltools/releases/download/v0.3.0/owltools > ${BUILD_DIR}/owltools

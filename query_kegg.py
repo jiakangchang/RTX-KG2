@@ -86,16 +86,18 @@ def preliminary_queries():
     info_dict = {}
     for query in info_queries:
         results = send_query(query)
-        for result in results:
-            result = result.strip("kegg").strip().split()
-            if len(results) < 1:
-                continue
-            if result[0] == "Release":
-                info_dict['version'] = result[1].split('/')[0].strip('+')
-                info_dict['update_date'] = result[2] + '-' + result[3]
+        for line in results:
+            line = line.strip()
+            if line.startswith("kegg") and "Release" in line:
+                words = line.split("kegg")[-1].strip().split()
+                if not words:
+                    continue
+                info_dict["version"] = words[1].split("/")[0].strip("+")
+                info_dict["update_date"] = words[2] + "-" + words[3]
+                break 
 
     # Return both the primed results dictionary and the metadata info dictionary
-    return results_dict, info_dict
+    return results_dict, info_dict 
 
 
 def create_query_lists(kegg_id_dict, num_threads):

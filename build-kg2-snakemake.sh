@@ -114,7 +114,8 @@ then
     echo 'include: "Snakefile-extraction"' >> ${snakefile}
 fi
 
-cd ~ && ${VENV_DIR}/bin/snakemake --snakefile ${snakefile} ${run_flag} -R Finish -j 16 ${dryrun} ${graphic}
+# cd ~ && ${VENV_DIR}/bin/snakemake --snakefile ${snakefile} ${run_flag} -R Finish -j 32 ${dryrun} ${graphic}
+cd ~ && ${VENV_DIR}/bin/snakemake --snakefile ${snakefile} -R Finish -j
 
 date
 echo "================ script finished ============================"
@@ -122,6 +123,6 @@ echo "================ script finished ============================"
 
 if [[ "${ci_flag}" != "ci" && "${dryrun}" != "-n" ]]
 then
-    ${s3_cp_cmd} ${build_kg2_log_file} s3://${s3_bucket_public}/
-    ${s3_cp_cmd} ${build_kg2_log_file} s3://${s3_bucket_versioned}/
+    ${gcs_cp_cmd} ${build_kg2_log_file} gs://${gcs_bucket_public}/
+    ${gcs_cp_cmd} ${build_kg2_log_file} gs://${gcs_bucket_versioned}/
 fi

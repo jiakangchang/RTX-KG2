@@ -464,14 +464,16 @@ def process_enzyme(enzyme_dict, kegg_id, nodes_output, edges_output, update_date
 
 
 def make_kg2_graph(input_kegg, nodes_output, edges_output, update_date):
-    version_number = "TEMP"
-    version_date = "TEMP"
+    version_number = "109.0"
+    version_date = 'Jan-24'
     for kegg_input_dict in input_kegg:
         for single_item in kegg_input_dict:
             kegg_id = single_item
         if kegg_id == 'info':
-            version_number = kegg_input_dict[kegg_id]['version']
-            version_date = kegg_input_dict[kegg_id]['update_date']
+            # version_number = kegg_input_dict[kegg_id]['version']
+            # version_date = kegg_input_dict[kegg_id]['update_date']
+            version_number = "109.0"
+            version_date = 'Jan-24'
             continue
         kegg_dict = kegg_input_dict[kegg_id]
         if KEGG_COMPOUND_PREFIX.match(kegg_id) is not None:

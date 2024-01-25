@@ -36,7 +36,7 @@ mkdir -p ${umls_dir}
 mkdir -p ${umls_dest_dir}
 
 ## copy UMLS distribution files and MetamorphoSys config files from S3 to local dir
-${s3_cp_cmd} s3://${s3_bucket}/${umls_file_base}.zip ${umls_dir}/
+${gcs_cp_cmd} gs://${gcs_bucket}/${umls_file_base}.zip ${umls_dir}/
 cp ${CODE_DIR}/umls-config.prop ${config_file}
 
 ## unpack UMLS zip archive

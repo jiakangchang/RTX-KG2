@@ -62,10 +62,10 @@ OBO:fma.owl:
   source_name: Foundational Model of Anatomy Ontology (FMA -- both from UMLS and from OBO)
   infores_curie: infores:fma-obo
   knowledge_type: knowledge_source
-OBO:foodon.owl:
-  source_name: Food Ontology
-  infores_curie: infores:foodon
-  knowledge_type: knowledge_source
+# OBO:foodon.owl:
+#   source_name: Food Ontology
+#   infores_curie: infores:foodon
+#   knowledge_type: knowledge_source
 OBO:genepio.owl:
   source_name: Genomic Epidemiology Ontology
   infores_curie: infores:genepio

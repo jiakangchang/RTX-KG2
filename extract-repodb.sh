@@ -20,7 +20,7 @@ repodb_file=repodb.csv
 
 mkdir -p ${repodb_dir}
 
-${s3_cp_cmd} s3://${s3_bucket}/${repodb_file} ${repodb_dir}/${repodb_file}
+${gcs_cp_cmd} gs://${gcs_bucket}/${repodb_file} ${repodb_dir}/${repodb_file}
 
 date
 echo "================= script finished ================="

@@ -29,7 +29,7 @@ local_version_filename=${5:-"${BUILD_DIR}/kg2-version.txt"}
 build_flag=${6:-""}
 s3_version_filename="kg2-version.txt"
 
-${s3_cp_cmd} s3://${s3_bucket_public}/${s3_version_filename} ${local_version_filename}
+${gcs_cp_cmd} gs://${gcs_bucket_public}/${s3_version_filename} ${local_version_filename}
 test_flag=''
 increment_flag=''
 if [[ "${build_flag}" == 'test' ]]
@@ -59,7 +59,7 @@ ${VENV_DIR}/bin/python3 -u ${CODE_DIR}/filter_kg_and_remap_predicates.py ${test_
                         --dropSelfEdgesExcept interacts_with,regulates,inhibits,increase \
                         ${predicate_mapping_file} ${infores_mapping_file} ${curies_to_urls_file} ${input_nodes_json} ${input_edges_json} \
                         ${output_nodes_json} ${output_edges_json} ${local_version_filename}
-${s3_cp_cmd} ${local_version_filename} s3://${s3_bucket_public}/${s3_version_filename}
+${gcs_cp_cmd} ${local_version_filename} gs://${gcs_bucket_public}/${s3_version_filename}
 
 if [[ -f ${trigger_file_is_major_release} ]]
 then

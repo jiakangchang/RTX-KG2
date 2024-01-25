@@ -111,6 +111,8 @@ BSPO:0001101:
   core_predicate: biolink:located_in
 BSPO:0001102:
   operation: delete
+MAXO:0000864:
+  operation: delete
 BSPO:0001106: 
   operation: invert
   core_predicate: biolink:has_part
@@ -3724,6 +3726,20 @@ RO:0002343:
 RO:0002344:
   operation: keep
   core_predicate: biolink:related_to
+RO:0000091:
+  operation: keep
+  core_predicate: biolink:related_to
+RO:0002252:
+  operation: keep
+  core_predicate: biolink:related_to
+RO:0012001:
+  operation: keep
+  core_predicate: biolink:affects
+  qualified_predicate: biolink:causes
+  qualifiers:
+    object_aspect: activity
+    object_direction: increased
+
 # RO:0002345:
 #   operation: keep
 #   core_predicate: biolink:affects
@@ -4500,6 +4516,20 @@ SIO:000203:
 SO:has_origin:
   operation: keep
   core_predicate: biolink:coexists_with
+SO:overlaps:
+  operation: keep
+  core_predicate: biolink:overlaps
+SO:member_of:
+  operation: invert
+  core_predicate: biolink:has_member
+SO:has_part:
+  operation: invert
+  core_predicate: biolink:has_part
+SO:derives_from:
+  operation: invert
+  core_predicate: biolink:derives_from
+SO:has_quality:
+  operation: delete
 # SO:similar_to:
 #   operation: keep
 #   core_predicate: biolink:similar_to

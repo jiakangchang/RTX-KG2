@@ -69,7 +69,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 #  - wget is used by the neo4j installation script (some special "--no-check-certificate" mode)
 sudo apt-get install -y \
      default-jre \
-     awscli \
      zip \
      curl \
      wget \
@@ -82,6 +81,19 @@ sudo apt-get install -y \
      git \
      libssl-dev \
      make
+
+# Install Google Cloud SDK
+echo "Installing Google Cloud SDK..."
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+
+# echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+sudo sh -c 'echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" > /etc/apt/sources.list.d/google-cloud-sdk.list'
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk 
+
+# Authenticate and set project for GCP
+# gcloud auth login
+gcloud config set project ${gcp_project_id}
 
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password ${mysql_password}"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${mysql_password}"
@@ -119,8 +131,8 @@ chmod +x ${BUILD_DIR}/owltools
 if [[ "${build_flag}" != "ci" ]]
 then
     ## setup AWS CLI
-    if ! ${s3_cp_cmd} s3://${s3_bucket}/test-file-do-not-delete /tmp/; then
-        aws configure
+    if ! ${gcs_cp_cmd} gs://${gcs_bucket}/test-file-do-not-delete/ /tmp/; then
+        echo "Error: Unable to access GCS bucket. Please check your GCP configuration."
     else
         rm -f /tmp/test-file-do-not-delete
     fi
@@ -159,7 +171,7 @@ EOF
           -e "set global local_infile=1"
 
     ## setup PostGreSQL
-    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    sudo sh -c 'echo "deb https://apt-archive.postgresql.org/pub/repos/apt bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     sudo apt-get update
     sudo apt-get -y install postgresql
@@ -181,5 +193,5 @@ echo "================= script finished ================="
 
 if [[ "${build_flag}" != "ci" ]]
 then
-    ${s3_cp_cmd} ${setup_log_file} s3://${s3_bucket_versioned}/
+    ${gcs_cp_cmd} ${setup_log_file} gs://${gcs_bucket_versioned}/
 fi

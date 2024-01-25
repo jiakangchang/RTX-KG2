@@ -23,7 +23,7 @@ output_file=${1:-"${BUILD_DIR}/drugbank.xml"}
 
 xml_filename=drugbank_${drugbank_version}.xml.gz
 
-${s3_cp_cmd} s3://${s3_bucket}/${xml_filename} ${BUILD_DIR}
+${gcs_cp_cmd} gs://${gcs_bucket}/${xml_filename} ${BUILD_DIR}
 gzip -cdf ${BUILD_DIR}/${xml_filename} > ${output_file}
 
 date

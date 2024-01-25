@@ -37,7 +37,7 @@ predication_sql_file=${base_filename}PREDICATION.sql.gz
 predication_aux_sql_file=${base_filename}PREDICATION_AUX.sql.gz
 sentence_sql_file=${base_filename}SENTENCE.sql.gz
 
-semmed_dump=${base_filename}WHOLEDB.tar.gz
+# semmed_dump=${base_filename}WHOLEDB.tar.gz
 
 mysql_dbname=semmeddb
 
@@ -47,12 +47,18 @@ mkdir -p ${semmed_output_dir}
 ## estimate amount of system ram, in GB
 mem_gb=`${CODE_DIR}/get-system-memory-gb.sh`
 
-${s3_cp_cmd} s3://${s3_bucket}/${semmed_dump} ${semmed_dir}/
+# ${gcs_cp_cmd} gs://${gcs_bucket}/${semmed_dump} ${semmed_dir}/
+
+${gcs_cp_cmd} gs://${gcs_bucket}/${citations_sql_file} ${semmed_dir}/
+${gcs_cp_cmd} gs://${gcs_bucket}/${generic_concept_sql_file} ${semmed_dir}/
+${gcs_cp_cmd} gs://${gcs_bucket}/${predication_sql_file} ${semmed_dir}/
+${gcs_cp_cmd} gs://${gcs_bucket}/${predication_aux_sql_file} ${semmed_dir}/
+${gcs_cp_cmd} gs://${gcs_bucket}/${sentence_sql_file} ${semmed_dir}/
 
 # We have to extract into the semmeddb directory, then move all of the extracted files (which
 # end up in a subfolder) into that directory
-tar -xf ${semmed_dir}/${semmed_dump} -C ${semmed_dir}
-mv ${semmed_dir}/semmeddb/* ${semmed_dir}
+# tar -xf ${semmed_dir}/${semmed_dump} -C ${semmed_dir}
+# mv ${semmed_dir}/semmeddb/* ${semmed_dir}
 
 ## if a "semmeddb" database already exists, delete it
     mysql --defaults-extra-file=${mysql_conf} \

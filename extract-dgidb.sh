@@ -21,9 +21,12 @@ dgidb_base_url="https://www.dgidb.org/"
 mkdir -p ${dgidb_dir}
 
 # not the most future proof, but finds the first table entry of interactions.tsv and grabs url from href
-dgidb_path=`${curl_get} http://www.dgidb.org/downloads | grep -m 1 'interactions.tsv' | sed 's:<td><a href="\(.*\)">.*</a></td>:\1:'`
-update_date=`echo ${dgidb_path} | grep -i -o -E '[0-9]{4}-[a-z]{3}'`
-dgidb_url="${dgidb_base_url}${dgidb_path}"
+# dgidb_path=`${curl_get} https://www.dgidb.org/downloads | grep -m 1 'interactions.tsv' | sed 's:<td><a href="\(.*\)">.*</a></td>:\1:'`
+# update_date=`echo ${dgidb_path} | grep -i -o -E '[0-9]{4}-[a-z]{3}'`
+# dgidb_url="${dgidb_base_url}${dgidb_path}"
+
+dgidb_url="https://www.dgidb.org/data/2022-Feb/interactions.tsv"
+update_date=`echo ${dgidb_url} | grep -i -o -E '[0-9]{4}-[a-z]{3}'`
 
 ${curl_get} ${dgidb_url} > /tmp/${dgidb_file}
 

@@ -19,10 +19,10 @@ rule Merge:
         ncbigene_edges = config['NCBIGENE_OUTPUT_EDGES_FILE'],
         dgidb_nodes = config['DGIDB_OUTPUT_NODES_FILE'],
         dgidb_edges = config['DGIDB_OUTPUT_EDGES_FILE'],
-        repodb_nodes = config['REPODB_OUTPUT_NODES_FILE'],
-        repodb_edges = config['REPODB_OUTPUT_EDGES_FILE'],
-        drugbank_nodes = config['DRUGBANK_OUTPUT_NODES_FILE'],
-        drugbank_edges = config['DRUGBANK_OUTPUT_EDGES_FILE'],
+        # repodb_nodes = config['REPODB_OUTPUT_NODES_FILE'],
+        # repodb_edges = config['REPODB_OUTPUT_EDGES_FILE'],
+        # drugbank_nodes = config['DRUGBANK_OUTPUT_NODES_FILE'],
+        # drugbank_edges = config['DRUGBANK_OUTPUT_EDGES_FILE'],
         smpdb_nodes = config['SMPDB_OUTPUT_NODES_FILE'],
         smpdb_edges = config['SMPDB_OUTPUT_EDGES_FILE'],
         hmdb_nodes = config['HMDB_OUTPUT_NODES_FILE'],
@@ -35,8 +35,8 @@ rule Merge:
         mirbase_edges = config['MIRBASE_OUTPUT_EDGES_FILE'],
         jensenlab_nodes = config['JENSENLAB_OUTPUT_NODES_FILE'],
         jensenlab_edges = config['JENSENLAB_OUTPUT_EDGES_FILE'],
-        drugcentral_nodes = config['DRUGCENTRAL_OUTPUT_NODES_FILE'],
-        drugcentral_edges = config['DRUGCENTRAL_OUTPUT_EDGES_FILE'],
+        # drugcentral_nodes = config['DRUGCENTRAL_OUTPUT_NODES_FILE'],
+        # drugcentral_edges = config['DRUGCENTRAL_OUTPUT_EDGES_FILE'],
         intact_nodes = config['INTACT_OUTPUT_NODES_FILE'],
         intact_edges = config['INTACT_OUTPUT_EDGES_FILE'],
         disgenet_nodes = config['DISGENET_OUTPUT_NODES_FILE'],
@@ -64,15 +64,15 @@ rule Merge:
             "{input.chembl_nodes} " + \
             "{input.ncbigene_nodes} " + \
             "{input.dgidb_nodes} " + \
-            "{input.repodb_nodes} " + \
+            # "{input.repodb_nodes} " + \
             "{input.smpdb_nodes} " + \
-            "{input.drugbank_nodes} " + \
+            # "{input.drugbank_nodes} " + \
             "{input.hmdb_nodes} " + \
             "{input.go_annotations_nodes} " + \
             "{input.reactome_nodes} " + \
             "{input.mirbase_nodes} " + \
             "{input.jensenlab_nodes} " + \
-            "{input.drugcentral_nodes} " + \
+            # "{input.drugcentral_nodes} " + \
             "{input.intact_nodes} " + \
             "{input.disgenet_nodes} " + \
             "{input.kegg_nodes} " + \
@@ -86,15 +86,15 @@ rule Merge:
             "{input.chembl_edges} " + \
             "{input.ncbigene_edges} " + \
             "{input.dgidb_edges} " + \
-            "{input.repodb_edges} " + \
+            # "{input.repodb_edges} " + \
             "{input.smpdb_edges} " + \
-            "{input.drugbank_edges} " + \
+            # "{input.drugbank_edges} " + \
             "{input.hmdb_edges} " + \
             "{input.go_annotations_edges} " + \
             "{input.reactome_edges} " + \
             "{input.mirbase_edges} " + \
             "{input.jensenlab_edges} " + \
-            "{input.drugcentral_edges} " + \
+            # "{input.drugcentral_edges} " + \
             "{input.intact_edges} " + \
             "{input.disgenet_edges} " + \
             "{input.kegg_edges} > {log} 2>&1"

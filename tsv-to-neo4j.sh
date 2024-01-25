@@ -36,7 +36,7 @@ tsv_tarball=${tsv_dir}/kg2-tsv-for-neo4j${test_arg}.tar.gz
 echo "copying RTX Configuration JSON file from S3"
 
 rtx_config_file_full=${BUILD_DIR}/${rtx_config_file}
-${s3_cp_cmd} s3://${s3_bucket}/${rtx_config_file} ${rtx_config_file_full}
+${gcs_cp_cmd} gs://${gcs_bucket}/${rtx_config_file} ${rtx_config_file_full}
 
 export PATH=$PATH:${BUILD_DIR}
 
@@ -54,7 +54,7 @@ rm -r -f ${tsv_dir}
 mkdir -p ${tsv_dir}
 
 # download the latest TSV files from the S3 Bucket
-${s3_cp_cmd} s3://${s3_bucket}/kg2-tsv-for-neo4j${test_arg}.tar.gz ${tsv_tarball}
+${gcs_cp_cmd} gs://${gcs_bucket}/kg2-tsv-for-neo4j${test_arg}.tar.gz ${tsv_tarball}
 
 # unpack the TSV tarball
 tar -xvzf ${tsv_tarball} -C ${tsv_dir}
