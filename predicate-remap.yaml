@@ -4893,7 +4893,7 @@ UMLS:therapeutic_class_of: # Look into this at a later time, there might be an o
   core_predicate: biolink:related_to
 UMLS:xref:
   operation: keep
-  core_predicate: biolink:close_match 
+  core_predicate: biolink:related_to 
 # UO-PROPERTY:is_unit_of:
 #   operation: keep
 #   core_predicate: biolink:related_to
@@ -5019,7 +5019,7 @@ biolink:subclass_of:
 #   core_predicate: biolink:has_sequence_location
 oboFormat:xref: 
   operation: keep
-  core_predicate: biolink:close_match
+  core_predicate: biolink:related_to
 owl:inverseOf: 
   operation: keep
   core_predicate: biolink:related_to
