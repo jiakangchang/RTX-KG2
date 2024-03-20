@@ -1093,6 +1093,9 @@ EFO:is_executed_in:
 ENVO:01001307:
   operation: keep
   core_predicate: biolink:coexists_with
+ENVO:02000200:
+  operation: keep
+  core_predicate: biolink:affects
 # FMA:SIB:
 #   operation: delete
 FMA:adheres_to:

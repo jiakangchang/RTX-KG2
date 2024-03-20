@@ -26,21 +26,21 @@ rule Ontologies_Conversion:
     shell:
         "bash -x {input.code} {output.nodes} {output.edges} " + config['TEST_FLAG'] + " > {log} 2>&1" 
 
-rule SemMedDB_Conversion:
-    input:
-        code = config['SEMMEDDB_CONVERSION_SCRIPT'],
-        real = config['SEMMEDDB_TUPLELIST_FILE'],
-        mrcui_req = config['UMLS_EXTRACT_FILE'],
-        exclusion_list = config['SEMMEDDB_EXCLUSION_FILE'],
-        version_file = config['SEMMEDDB_VERSION_FILE'],
-        validation = config['VALIDATION_PLACEHOLDER']
-    output:
-        nodes = config['SEMMEDDB_OUTPUT_NODES_FILE'],
-        edges = config['SEMMEDDB_OUTPUT_EDGES_FILE']
-    log:
-        config['SEMMEDDB_CONVERSION_LOG']
-    shell:
-        config['PYTHON_COMMAND'] + " {input.code} --mrcuiFile ~/kg2-build/umls/META/MRCUI.RRF {input.real} {input.exclusion_list} {input.version_file} {output.nodes} {output.edges} " + config['TEST_ARG'] + " > {log} 2>&1"
+# rule SemMedDB_Conversion:
+#     input:
+#         code = config['SEMMEDDB_CONVERSION_SCRIPT'],
+#         real = config['SEMMEDDB_TUPLELIST_FILE'],
+#         mrcui_req = config['UMLS_EXTRACT_FILE'],
+#         exclusion_list = config['SEMMEDDB_EXCLUSION_FILE'],
+#         version_file = config['SEMMEDDB_VERSION_FILE'],
+#         validation = config['VALIDATION_PLACEHOLDER']
+#     output:
+#         nodes = config['SEMMEDDB_OUTPUT_NODES_FILE'],
+#         edges = config['SEMMEDDB_OUTPUT_EDGES_FILE']
+#     log:
+#         config['SEMMEDDB_CONVERSION_LOG']
+#     shell:
+#         config['PYTHON_COMMAND'] + " {input.code} --mrcuiFile ~/kg2-build/umls/META/MRCUI.RRF {input.real} {input.exclusion_list} {input.version_file} {output.nodes} {output.edges} " + config['TEST_ARG'] + " > {log} 2>&1"
 
 rule UniProtKB_Conversion:
     input:

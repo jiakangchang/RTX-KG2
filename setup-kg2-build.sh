@@ -84,11 +84,11 @@ sudo apt-get install -y \
 
 # Install Google Cloud SDK
 echo "Installing Google Cloud SDK..."
-export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+# export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 
 # echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-sudo sh -c 'echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" > /etc/apt/sources.list.d/google-cloud-sdk.list'
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+# sudo sh -c 'echo "deb http://packages.cloud.google.com/apt cloud-sdk-bionic main" > /etc/apt/sources.list.d/google-cloud-sdk.list'
+# curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install google-cloud-sdk 
 
 # Authenticate and set project for GCP
@@ -171,10 +171,18 @@ EOF
           -e "set global local_infile=1"
 
     ## setup PostGreSQL
-    sudo sh -c 'echo "deb https://apt-archive.postgresql.org/pub/repos/apt bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    # sudo sh -c 'echo "deb https://apt-archive.postgresql.org/pub/repos/apt bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    # wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    # sudo apt-get update
+    # sudo apt-get -y install postgresql
+    # Set the PostgreSQL version you want to install
+    postgresql_version=15
+
+    # Add the correct PostgreSQL repository for Ubuntu 22.04 (Jammy)
+    sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | sudo tee /usr/share/keyrings/postgresql-archive-keyring.gpg > /dev/null
     sudo apt-get update
-    sudo apt-get -y install postgresql
+    sudo apt-get -y install postgresql-$postgresql_version
     
     # Addresses permission issues
     # https://stackoverflow.com/questions/38470952/postgres-can-not-change-directory-in-ubuntu-14-04
